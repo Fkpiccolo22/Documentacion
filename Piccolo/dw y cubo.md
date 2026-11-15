@@ -71,6 +71,7 @@ CUBEJS_API_SECRET=tu_api_secret_generado
 Para que Cube pudiera interpretar correctamente cómo se conectan las tablas de hechos con las dimensiones en el esquema de estrella, se configuraron los joins en Visual Studio Code. Esto permite que las métricas de ventas e inventario se crucen de forma automática con las dimensiones de productos, proveedores, sucursales y tiempo.
 
 Ejemplo de la estructura de relaciones (joins) configurada en los cubos:
+
 cube(`FactVentas`, {
   sql: `SELECT * FROM dw.fact_ventas`,
 
@@ -124,24 +125,28 @@ cube(`FactVentas`, {
 Para evitar duplicidad de registros y asegurar la integridad de la granularidad en las tablas de hechos, se implementaron restricciones únicas (UNIQUE CONSTRAINTS) directamente en Supabase.
 
 -- Verificar duplicados previos
+
 SELECT id_producto, id_tiempo, id_sucursal, COUNT(*) as total
 FROM dw.fact_inventario
 GROUP BY id_producto, id_tiempo, id_sucursal
 HAVING COUNT(*) > 1;
 
 -- Aplicar restricción única
+
 ALTER TABLE dw.fact_inventario
 ADD CONSTRAINT unique_producto_tiempo_sucursal UNIQUE (id_producto, id_tiempo, id_sucursal);
 
 <img width="1046" height="417" alt="image" src="https://github.com/user-attachments/assets/e7ae3f16-bcac-4e61-9d37-d5ff59eabc30" />
 
 -- Verificar duplicados previos
+
 SELECT id_venta, id_producto, COUNT(*) as total
 FROM dw.fact_ventas
 GROUP BY id_venta, id_producto
 HAVING COUNT(*) > 1;
 
 -- Aplicar restricción única
+
 ALTER TABLE dw.fact_ventas
 ADD CONSTRAINT unique_venta_producto UNIQUE (id_venta, id_producto);
 
