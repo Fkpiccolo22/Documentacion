@@ -66,7 +66,7 @@ CUBEJS_API_SECRET=tu_api_secret_generado
 
 ---
 
-## 4. Configuración de relaciones y joins
+## 4. Configuración de relaciones y joins del modelo cubo OLAP 
 
 Para que Cube pudiera interpretar correctamente cómo se conectan las tablas de hechos con las dimensiones en el esquema de estrella, se configuraron los joins en Visual Studio Code. Esto permite que las métricas de ventas e inventario se crucen de forma automática con las dimensiones de productos, proveedores, sucursales y tiempo.
 
@@ -119,7 +119,7 @@ cube(`FactVentas`, {
 ---
 
 
-## 5. Estructura y limpieza de las tablas de hechos 
+## 5. Estructura y limpieza de las tablas de hechos (Blindaje con Constraints)
 
 Para evitar duplicidad de registros y asegurar la integridad de la granularidad en las tablas de hechos, se implementaron restricciones únicas (UNIQUE CONSTRAINTS) directamente en Supabase.
 
